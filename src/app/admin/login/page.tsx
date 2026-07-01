@@ -40,9 +40,9 @@ export default function AdminLoginPage() {
     // Perform authentication call
     const result = await loginWithEmail(data)
     
-    if (!result.success) {
+    if (!result || !result.success) {
       setIsLoading(false)
-      setStatusMsg(result.message || 'Authentication failed.')
+      setStatusMsg(result?.message || 'Authentication failed.')
       return
     }
 

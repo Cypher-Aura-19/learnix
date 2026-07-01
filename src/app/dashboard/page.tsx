@@ -57,7 +57,7 @@ export default function DashboardPage() {
   const [selectedCourse, setSelectedCourse] = useState<any | null>(null)
   const [courseMilestones, setCourseMilestones] = useState<any[]>([])
   const [loadingEnroll, setLoadingEnroll] = useState(false)
-  const [activeTab, setActiveTab] = useState<'dashboard' | 'my-courses' | 'explore'>('dashboard')
+  const [activeTab, setActiveTab] = useState<'dashboard' | 'my-courses' | 'explore' | 'certificates'>('dashboard')
   const [user, setUser] = useState<any>(null)
   const [loading, setLoading] = useState(true)
   const [profileMenuOpen, setProfileMenuOpen] = useState(false)
@@ -147,7 +147,7 @@ export default function DashboardPage() {
       const dbEnrollments = await fetchUserEnrollments()
       setEnrollments(dbEnrollments)
 
-      const enrolledCourseIds = dbEnrollments.map(e => e.course_id)
+      const enrolledCourseIds = dbEnrollments.map((e: any) => e.course_id)
       if (enrolledCourseIds.length > 0) {
         const { data: milestonesData } = await supabase
           .from('milestones')
@@ -291,7 +291,7 @@ export default function DashboardPage() {
       const dbEnrollments = await fetchUserEnrollments()
       setEnrollments(dbEnrollments)
 
-      const enrolledCourseIds = dbEnrollments.map(e => e.course_id)
+      const enrolledCourseIds = dbEnrollments.map((e: any) => e.course_id)
       if (enrolledCourseIds.length > 0) {
         const { data: milestonesData } = await supabase
           .from('milestones')
@@ -312,7 +312,7 @@ export default function DashboardPage() {
       const dbEnrollments = await fetchUserEnrollments()
       setEnrollments(dbEnrollments)
 
-      const enrolledCourseIds = dbEnrollments.map(e => e.course_id)
+      const enrolledCourseIds = dbEnrollments.map((e: any) => e.course_id)
       if (enrolledCourseIds.length > 0) {
         const { data: milestonesData } = await supabase
           .from('milestones')

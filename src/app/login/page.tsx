@@ -95,7 +95,7 @@ export default function LoginPage() {
       : await signupWithEmail(formData)
 
     setLoading(false)
-    if (result.success) {
+    if (result && result.success) {
       if (isLogin && 'role' in result) {
         // Redirect to correct dashboard immediately based on role
         const destination = (result as any).role === 'admin' ? '/admin/dashboard' : '/dashboard'
@@ -111,7 +111,7 @@ export default function LoginPage() {
       setFeedback({
         type: 'error',
         title: 'Authentication Error',
-        text: result.message
+        text: result?.message || 'Authentication failed.'
       })
     }
   }
