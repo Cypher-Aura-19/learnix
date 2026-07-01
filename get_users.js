@@ -1,0 +1,28 @@
+const { createClient } = require('@supabase/supabase-js');
+const fs = require('fs');
+const path = require('path');
+
+const envFile = fs.readFileSync(path.join(__dirname, '.env.local'), 'utf8');
+const env = {};
+envFile.split('\n').forEach(line => {
+  const parts = line.split('=');
+  if (parts.length >= 2) env[parts[0].trim()] = parts.slice(1).join('=').trim();
+});
+
+const supabase = createClient(env.NEXT_PUBLIC_SUPABASE_URL, env.SUPABASE_SERVICE_ROLE_KEY, {
+  auth: { persistSession: false, autoRefreshToken: false }
+});
+
+async function main() {
+  const { data: { users }, error } = await supabase.auth.admin.listUsers();
+  if (error) {
+    console.error(error);
+    return;
+  }
+  console.log("Users:");
+  users.forEach(u => {
+    console.log(`- Email: ${u.email}`);
+  });
+}
+
+main();
